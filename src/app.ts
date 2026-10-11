@@ -27,8 +27,4 @@ app.use((req, res, next) => {
 app.use('/', router);
 app.use(errorHandler);
 
-// ルーティング設定
-app.use('/', router);
-app.use(errorHandler);
-
 export default app;
