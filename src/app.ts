@@ -17,6 +17,16 @@ app.use(cors({ origin: env.CORS_POLICY_ORIGIN }));
 app.use(express.json());
 app.use(loggerMiddleware);
 
+app.use((req, res, next) => {
+  const k = process.env.API_KEY;
+  if (!k || req.headers['x-api-key'] === k) return next();
+  res.status(401).json({ error: 'unauthorized' });
+});
+
+// ルーティング設定
+app.use('/', router);
+app.use(errorHandler);
+
 // ルーティング設定
 app.use('/', router);
 app.use(errorHandler);
